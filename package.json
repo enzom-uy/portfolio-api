@@ -1,11 +1,11 @@
 {
   "name": "api-portfolio",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.ts",
   "license": "MIT",
   "author": "Enzo Muñoz",
   "scripts": {
-    "dev": "nodemon --exec ts-node-dev src/index.ts",
+    "dev": "nodemon --exec ts-node-dev src/app.ts",
     "build": "tsc",
     "lint": "ts-standard",
     "test": "NODE_OPTIONS=--experimental-vm-modules && npx jest"
