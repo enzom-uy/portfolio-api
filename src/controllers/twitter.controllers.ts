@@ -30,12 +30,9 @@ export const getTwitterFollowingsAndFollowers: RequestHandler = async (
       followers: followers.data.meta.result_count
     })
   } catch (error) {
-    res
-      .status(404)
-      .send('There was an error while trying to fulfill your request.')
-      .json({
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        error: `There was an error while trying to fulfill your request: \n ${error}`
-      })
+    res.status(404).json({
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      error: `There was an error while trying to fulfill your request: \n ${error}`
+    })
   }
 }
