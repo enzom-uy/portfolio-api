@@ -23,17 +23,17 @@ const getTwitterFollowingsAndFollowers = (_req, res) => __awaiter(void 0, void 0
             headers: {
                 Authorization: `Bearer ${config_1.twitterBearerToken}`
             }
-        });
+        }).then((res) => res.data);
         const followers = yield (0, axios_1.default)({
             method: 'get',
             url: config_1.twitterFollowers,
             headers: {
                 Authorization: `Bearer ${config_1.twitterBearerToken}`
             }
-        });
+        }).then((res) => res.data);
         res.status(200).json({
-            followings: followings.data.meta.result_count,
-            followers: followers.data.meta.result_count
+            followings: followings.meta.result_count,
+            followers: followers.meta.result_count
         });
     }
     catch (error) {

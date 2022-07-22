@@ -17,17 +17,17 @@ export const getTwitterFollowingsAndFollowers: RequestHandler = async (
       headers: {
         Authorization: `Bearer ${twitterBearerToken}`
       }
-    })
+    }).then((res) => res.data)
     const followers = await axios({
       method: 'get',
       url: twitterFollowers,
       headers: {
         Authorization: `Bearer ${twitterBearerToken}`
       }
-    })
+    }).then((res) => res.data)
     res.status(200).json({
-      followings: followings.data.meta.result_count,
-      followers: followers.data.meta.result_count
+      followings: followings.meta.result_count,
+      followers: followers.meta.result_count
     })
   } catch (error) {
     res.status(404).json({
