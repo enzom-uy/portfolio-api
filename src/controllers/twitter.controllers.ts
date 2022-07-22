@@ -36,7 +36,7 @@ export const getTwitterFollowingsAndFollowers: RequestHandler = async (
     res.status(200).json({
       followings: followings.meta.result_count,
       followers: followers.meta.result_count,
-      profileData: profileData.data
+      twitterData: profileData.data
     })
   } catch (error) {
     res.status(404).json({
