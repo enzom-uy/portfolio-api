@@ -7,7 +7,7 @@ import { RequestHandler } from 'express'
 import axios from 'axios'
 
 export const getTwitterFollowingsAndFollowers: RequestHandler = async (
-  req,
+  _req,
   res
 ) => {
   try {
@@ -32,6 +32,9 @@ export const getTwitterFollowingsAndFollowers: RequestHandler = async (
     res
       .status(404)
       .send('There was an error while trying to fulfill your request.')
-      .json(error)
+      .json({
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+        error: `There was an error while trying to fulfill your request: \n ${error}`
+      })
   }
 }
