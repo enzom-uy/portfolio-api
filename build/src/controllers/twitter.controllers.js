@@ -31,9 +31,16 @@ const getTwitterFollowingsAndFollowers = (_req, res) => __awaiter(void 0, void 0
                 Authorization: `Bearer ${config_1.twitterBearerToken}`
             }
         }).then((res) => res.data);
+        const profileData = yield axios_1.default
+            .get(config_1.twitterUser, {
+            headers: { Authorization: `Bearer ${config_1.twitterBearerToken}` },
+            params: { 'user.fields': 'profile_image_url' }
+        })
+            .then((res) => res.data);
         res.status(200).json({
             followings: followings.meta.result_count,
-            followers: followers.meta.result_count
+            followers: followers.meta.result_count,
+            twitterData: profileData.data
         });
     }
     catch (error) {
