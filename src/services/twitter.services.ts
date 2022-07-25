@@ -54,7 +54,10 @@ const dataFromTwitterTask = new AsyncTask(
     await axios
       .get(twitterUser, {
         headers: { Authorization: `Bearer ${twitterBearerToken}` },
-        params: { 'user.fields': ['profile_image_url', 'description'] }
+        params: {
+          'user.fields': 'profile_image_url,description'
+        },
+        responseEncoding: 'utf8'
       })
       .then((res) => {
         profileData = res.data.data
@@ -64,7 +67,7 @@ const dataFromTwitterTask = new AsyncTask(
 
 export const getUserDataFromTwitter = new SimpleIntervalJob(
   {
-    minutes: 30
+    seconds: 3
   },
   dataFromTwitterTask
 )

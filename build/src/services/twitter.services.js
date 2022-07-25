@@ -44,7 +44,10 @@ const dataFromTwitterTask = new toad_scheduler_1.AsyncTask('twitter fetch user d
     return yield axios_1.default
         .get(config_1.twitterUser, {
         headers: { Authorization: `Bearer ${config_1.twitterBearerToken}` },
-        params: { 'user.fields': ['profile_image_url', 'description'] }
+        params: {
+            'user.fields': 'profile_image_url,description'
+        },
+        responseEncoding: 'utf8'
     })
         .then((res) => {
         exports.profileData = res.data.data;
@@ -52,7 +55,7 @@ const dataFromTwitterTask = new toad_scheduler_1.AsyncTask('twitter fetch user d
     });
 }));
 exports.getUserDataFromTwitter = new toad_scheduler_1.SimpleIntervalJob({
-    minutes: 30
+    seconds: 3
 }, dataFromTwitterTask);
 const getDataFromTwitter = () => __awaiter(void 0, void 0, void 0, function* () {
     const twitterData = { followings: exports.followings, followers: exports.followers, profileData: exports.profileData };
