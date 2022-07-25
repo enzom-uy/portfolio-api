@@ -1,4 +1,27 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,46 +31,31 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getTwitterFollowingsAndFollowers = void 0;
-const config_1 = require("./../utils/config");
-const axios_1 = __importDefault(require("axios"));
-const getTwitterFollowingsAndFollowers = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getTwitterData = void 0;
+const toad_scheduler_1 = require("toad-scheduler");
+const twitter_services_1 = __importStar(require("../services/twitter.services"));
+const scheduler = new toad_scheduler_1.ToadScheduler();
+scheduler.addSimpleIntervalJob(twitter_services_1.getFollowersFromTwitter);
+scheduler.addSimpleIntervalJob(twitter_services_1.getFollowingsFromTwitter);
+scheduler.addSimpleIntervalJob(twitter_services_1.getUserDataFromTwitter);
+const getTwitterData = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const followings = yield (0, axios_1.default)({
-            method: 'get',
-            url: config_1.twitterFollowings,
-            headers: {
-                Authorization: `Bearer ${config_1.twitterBearerToken}`
-            }
-        }).then((res) => res.data);
-        const followers = yield (0, axios_1.default)({
-            method: 'get',
-            url: config_1.twitterFollowers,
-            headers: {
-                Authorization: `Bearer ${config_1.twitterBearerToken}`
-            }
-        }).then((res) => res.data);
-        const profileData = yield axios_1.default
-            .get(config_1.twitterUser, {
-            headers: { Authorization: `Bearer ${config_1.twitterBearerToken}` },
-            params: { 'user.fields': 'profile_image_url' }
-        })
-            .then((res) => res.data);
+        const data = yield (0, twitter_services_1.default)();
+        const followings = data.followings;
+        const followers = data.followers;
+        const twitterData = data.profileData;
         res.status(200).json({
-            followings: followings.meta.result_count,
-            followers: followers.meta.result_count,
-            twitterData: profileData.data
+            followings,
+            followers,
+            twitterData
         });
     }
     catch (error) {
         res.status(404).json({
             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-            error: `There was an error while trying to fulfill your request: \n ${error}`
+            error: `There was an error while trying to fulfill your request: ${error}`
         });
     }
 });
-exports.getTwitterFollowingsAndFollowers = getTwitterFollowingsAndFollowers;
+exports.getTwitterData = getTwitterData;

@@ -26,5 +26,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const twitterControllers = __importStar(require("../controllers/twitter.controllers"));
 const twitterRoute = (0, express_1.Router)();
-twitterRoute.get('/api/twitter', twitterControllers.getTwitterFollowingsAndFollowers);
+twitterRoute.get('/api/twitter', twitterControllers.getTwitterData);
 exports.default = twitterRoute;
