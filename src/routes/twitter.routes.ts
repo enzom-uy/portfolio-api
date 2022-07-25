@@ -3,9 +3,6 @@ import * as twitterControllers from '../controllers/twitter.controllers'
 
 const twitterRoute = Router()
 
-twitterRoute.get(
-  '/api/twitter',
-  twitterControllers.getTwitterFollowingsAndFollowers
-)
+twitterRoute.get('/api/twitter', twitterControllers.getTwitterData)
 
 export default twitterRoute
