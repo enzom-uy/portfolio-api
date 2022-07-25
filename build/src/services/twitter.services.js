@@ -44,7 +44,7 @@ const dataFromTwitterTask = new toad_scheduler_1.AsyncTask('twitter fetch user d
     return yield axios_1.default
         .get(config_1.twitterUser, {
         headers: { Authorization: `Bearer ${config_1.twitterBearerToken}` },
-        params: { 'user.fields': 'profile_image_url' }
+        params: { 'user.fields': ['profile_image_url', 'description'] }
     })
         .then((res) => {
         exports.profileData = res.data.data;

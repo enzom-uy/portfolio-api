@@ -54,7 +54,7 @@ const dataFromTwitterTask = new AsyncTask(
     await axios
       .get(twitterUser, {
         headers: { Authorization: `Bearer ${twitterBearerToken}` },
-        params: { 'user.fields': 'profile_image_url' }
+        params: { 'user.fields': ['profile_image_url', 'description'] }
       })
       .then((res) => {
         profileData = res.data.data
