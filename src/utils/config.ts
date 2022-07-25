@@ -8,3 +8,7 @@ export const twitterBearerToken = process.env.TWITTER_BEARER_TOKEN as string
 export const twitterFollowings = process.env.TWITTER_FOLLOWINGS as string
 export const twitterFollowers = process.env.TWITTER_FOLLOWERS as string
 export const twitterUser = process.env.TWITTER_USER as string
+
+export const twitterConfig = {
+  headers: { Authorization: `Bearer ${twitterBearerToken}` }
+}

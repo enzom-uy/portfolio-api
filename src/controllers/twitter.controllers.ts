@@ -1,5 +1,16 @@
 import { RequestHandler } from 'express'
-import getDataFromTwitter from '../services/twitter.services'
+import { ToadScheduler } from 'toad-scheduler'
+import getDataFromTwitter, {
+  getUserDataFromTwitter,
+  getFollowersFromTwitter,
+  getFollowingsFromTwitter
+} from '../services/twitter.services'
+
+const scheduler = new ToadScheduler()
+
+scheduler.addSimpleIntervalJob(getFollowersFromTwitter)
+scheduler.addSimpleIntervalJob(getFollowingsFromTwitter)
+scheduler.addSimpleIntervalJob(getUserDataFromTwitter)
 
 export const getTwitterData: RequestHandler = async (_req, res) => {
   try {
@@ -15,7 +26,7 @@ export const getTwitterData: RequestHandler = async (_req, res) => {
   } catch (error) {
     res.status(404).json({
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      error: `There was an error while trying to fulfill your request: \n ${error}`
+      error: `There was an error while trying to fulfill your request: ${error}`
     })
   }
 }
