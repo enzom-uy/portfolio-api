@@ -25,7 +25,7 @@ const followersFromTwitterTask = new toad_scheduler_1.AsyncTask('twitter fetch f
         exports.followers = res.data.meta.result_count;
     });
 }));
-exports.getFollowersFromTwitter = new toad_scheduler_1.SimpleIntervalJob({ minutes: 30 }, followersFromTwitterTask);
+exports.getFollowersFromTwitter = new toad_scheduler_1.SimpleIntervalJob({ minutes: 17 }, followersFromTwitterTask);
 const followingsFromTwitterTask = new toad_scheduler_1.AsyncTask('twitter fetch followings', () => __awaiter(void 0, void 0, void 0, function* () {
     return yield (0, axios_1.default)({
         method: 'get',
@@ -38,7 +38,7 @@ const followingsFromTwitterTask = new toad_scheduler_1.AsyncTask('twitter fetch 
     });
 }));
 exports.getFollowingsFromTwitter = new toad_scheduler_1.SimpleIntervalJob({
-    minutes: 30
+    minutes: 17
 }, followingsFromTwitterTask);
 const dataFromTwitterTask = new toad_scheduler_1.AsyncTask('twitter fetch user data', () => __awaiter(void 0, void 0, void 0, function* () {
     return yield axios_1.default
@@ -55,7 +55,7 @@ const dataFromTwitterTask = new toad_scheduler_1.AsyncTask('twitter fetch user d
     });
 }));
 exports.getUserDataFromTwitter = new toad_scheduler_1.SimpleIntervalJob({
-    seconds: 3
+    minutes: 17
 }, dataFromTwitterTask);
 const getDataFromTwitter = () => __awaiter(void 0, void 0, void 0, function* () {
     const twitterData = { followings: exports.followings, followers: exports.followers, profileData: exports.profileData };

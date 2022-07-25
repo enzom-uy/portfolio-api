@@ -23,7 +23,7 @@ const followersFromTwitterTask = new AsyncTask(
 )
 
 export const getFollowersFromTwitter = new SimpleIntervalJob(
-  { minutes: 30 },
+  { minutes: 17 },
   followersFromTwitterTask
 )
 
@@ -43,7 +43,7 @@ const followingsFromTwitterTask = new AsyncTask(
 
 export const getFollowingsFromTwitter = new SimpleIntervalJob(
   {
-    minutes: 30
+    minutes: 17
   },
   followingsFromTwitterTask
 )
@@ -67,7 +67,7 @@ const dataFromTwitterTask = new AsyncTask(
 
 export const getUserDataFromTwitter = new SimpleIntervalJob(
   {
-    seconds: 3
+    minutes: 17
   },
   dataFromTwitterTask
 )
