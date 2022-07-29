@@ -11,6 +11,7 @@
     "typeRoots": [
       "./src/custom_typings",
       "./node_modules/@types"
-    ]
+    ],
+    "baseUrl": "./src/"
   }
 }
