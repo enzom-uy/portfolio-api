@@ -61,7 +61,6 @@ const dataFromTwitterTask = new AsyncTask(
       })
       .then((res) => {
         profileData = res.data.data
-        console.log(profileData)
       })
 )
 

@@ -20,10 +20,15 @@ export const loginUser: RequestHandler = async (req, res) => {
   if (!userIsAdmin) {
     return res
       .status(401)
-      .json({ error: "Login failed: you clearly shouldn't be here." })
+      .send({
+        error: "Login failed: you clearly shouldn't be here.",
+        status: 'ERROR'
+      })
   }
 
   const userForToken = { username: body.username }
   const authToken = jwt.sign(userForToken, secretKey)
-  return res.status(200).send({ authToken, username: body.username })
+  return res
+    .status(200)
+    .send({ authToken, username: body.username, status: 'OK' })
 }
