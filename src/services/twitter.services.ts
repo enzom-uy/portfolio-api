@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import axios from 'axios'
+import { AsyncTask, SimpleIntervalJob } from 'toad-scheduler'
 import {
   twitterBearerToken,
   twitterConfig,
@@ -7,7 +8,6 @@ import {
   twitterFollowings,
   twitterUser
 } from '../utils/config'
-import { SimpleIntervalJob, AsyncTask } from 'toad-scheduler'
 
 export let followers = 0
 export let followings = 0
@@ -23,7 +23,7 @@ const followersFromTwitterTask = new AsyncTask(
 )
 
 export const getFollowersFromTwitter = new SimpleIntervalJob(
-  { minutes: 17 },
+  { minutes: 40 },
   followersFromTwitterTask
 )
 
@@ -43,7 +43,7 @@ const followingsFromTwitterTask = new AsyncTask(
 
 export const getFollowingsFromTwitter = new SimpleIntervalJob(
   {
-    minutes: 17
+    minutes: 40
   },
   followingsFromTwitterTask
 )
@@ -66,7 +66,7 @@ const dataFromTwitterTask = new AsyncTask(
 
 export const getUserDataFromTwitter = new SimpleIntervalJob(
   {
-    minutes: 17
+    minutes: 40
   },
   dataFromTwitterTask
 )
