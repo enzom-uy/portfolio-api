@@ -28,6 +28,7 @@ export const loginUser: RequestHandler = async (req, res) => {
 
   const userForToken = { username: body.username }
   const authToken = jwt.sign(userForToken, secretKey)
+  console.log('admin logged')
   return res
     .status(200)
     .send({ authToken, username: body.username, status: 'OK' })
